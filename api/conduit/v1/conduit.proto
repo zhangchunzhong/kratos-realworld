@@ -1,0 +1,269 @@
+syntax = "proto3";
+
+package conduit.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "kratos-realworld/api/conduit/v1;v1";
+
+
+// The conduit service definition.
+service Conduit {
+  rpc Authenticate(AuthenticateRequest) returns (UserReply) {
+    option (google.api.http) = {
+      post: "/api/users/login"
+      body: "*"
+    };
+  }
+  rpc Register(RegisterRequest) returns (UserReply) {
+    option (google.api.http) = {
+      post: "/api/users"
+      body: "*"
+    };
+  }
+  rpc getCurrentUser(google.protobuf.Empty) returns (UserReply) {
+    option (google.api.http) = {
+      get: "/api/user"
+    };
+  }
+  rpc updateUser(UserReply.User) returns (UserReply) {
+    option (google.api.http) = {
+      put: "/api/user"
+      body: "*"
+    };
+  }
+  rpc getProfile(ProfileRequest) returns (ProfileReply) {
+    option (google.api.http) = {
+      get: "/api/profiles/{username}"
+    };
+  }
+  rpc followUser(ProfileRequest) returns (ProfileReply) {
+    option (google.api.http) = {
+      post: "/api/profiles/{username}/follow"
+      body: "*"
+    };
+  }
+  rpc unfollowUser(ProfileRequest) returns (ProfileReply) {
+    option (google.api.http) = {
+      delete: "/api/profiles/{username}/follow"
+    };
+  }
+  rpc listArticles(ListArticlesRequest) returns (ArticlesReply) {
+    option (google.api.http) = {
+      get: "/api/articles"
+    };
+  }
+  rpc feedArticles(ListArticlesRequest) returns (ArticlesReply) {
+    option (google.api.http) = {
+      get: "/api/articles/feed"
+    };
+  }
+  rpc getArticle(ArticleRequest) returns (ArticleReply) {
+    option (google.api.http) = {
+      get: "/api/articles/{slug}"
+    };
+  }
+  rpc createArticle(ArticleReply.Article) returns (ArticleReply) {
+    option (google.api.http) = {
+      post: "/api/articles"
+      body: "*"
+    };
+  }
+  rpc updateArticle(ArticleReply.Article) returns (ArticleReply) {
+    option (google.api.http) = {
+      put: "/api/articles/{slug}"
+      body: "*"
+    };
+  }
+  rpc deleteArticle(ArticleRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/api/articles/{slug}"
+    };
+  }
+  rpc addComment(AddCommentRequest) returns (CommentReply) {
+    option (google.api.http) = {
+      post: "/api/articles/{slug}/comments"
+      body: "*"
+    };
+  }
+  rpc getComments(GetCommentsRequest) returns (CommentsReply) {
+    option (google.api.http) = {
+      get: "/api/articles/{slug}/comments"
+    };
+  }
+  rpc deleteComment(DeleteCommentRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/api/articles/{slug}/comments/{id}"
+    };
+  }
+  rpc favoriteArticle(ArticleRequest) returns (ArticleReply) {
+    option (google.api.http) = {
+      post: "/api/articles/{slug}/favorite"
+      body: "*"
+    };
+  }
+  rpc unfavoriteArticle(ArticleRequest) returns (ArticleReply) {
+    option (google.api.http) = {
+      delete: "/api/articles/{slug}/favorite"
+    };
+  }
+  rpc listTags(google.protobuf.Empty) returns (TagsReply) {
+    option (google.api.http) = {
+      get: "/api/tags"
+    };
+  }
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings
+message HelloReply {
+  string message = 1;
+}
+
+message AuthenticateRequest {
+
+  message User {
+      string email = 1;
+      string password = 2;
+  }
+
+  User user = 1;
+}
+
+message RegisterRequest {
+
+  message User {
+      string username = 1;
+      string email = 2;
+      string password = 3;
+  }
+
+  User user = 1;
+}
+
+message ProfileRequest {
+  string username = 1;
+}
+
+message ListArticlesRequest {
+
+  message ListArticles {
+      string tag = 1;
+      string author = 2;
+      string favorited = 3;
+      int32 limit = 4;
+      int32 offset = 5;
+  }
+
+  ListArticles listArticles = 1;
+}
+
+message ArticleRequest {
+  string slug = 1;
+}
+
+message AddCommentRequest {
+  string slug = 1;
+  string body = 2;
+}
+
+message GetCommentsRequest {
+  string slug = 1;
+}
+
+message DeleteCommentRequest {
+  string slug = 1;
+  int32 id = 2;
+}
+
+message UserReply {
+
+  message User {
+      string email = 1;
+      string token = 2;
+      string username = 3;
+      string bio = 4;
+      string image = 5;
+  }
+
+  User user = 1;
+}
+
+
+message ProfileReply {
+
+  message Profile {
+      string username = 1;
+      string bio = 2;
+      string image = 3;
+      bool following = 4;
+  }
+
+  Profile profile = 1;
+}
+
+message ArticleReply {
+
+  message Article {
+      string slug = 1;
+      string title = 2;
+      string description = 3;
+      string body = 4;
+      repeated string tagList = 5;
+      google.protobuf.Timestamp createdAt = 6;
+      google.protobuf.Timestamp updatedAt = 7;
+      bool favorited = 8;
+      int32 favoritesCount = 9;
+      UserReply.User author = 10;
+  }
+
+  Article article = 1;
+}
+
+message ArticlesReply {
+
+  message Articles {
+      repeated ArticleReply.Article articles = 1;
+      int32 articlesCount = 2;
+  }
+
+  Articles articles = 1;
+}
+
+message CommentReply {
+
+  message Comment {
+      int32 id = 1;
+      string createdAt = 2;
+      string updatedAt = 3;
+      string body = 4;
+      UserReply.User author = 5;
+  }
+
+  Comment comment = 1;
+}
+
+message CommentsReply {
+
+  message Comments {
+      repeated CommentReply.Comment comments = 1;
+  }
+
+  Comments comments = 1;
+}
+
+message TagsReply {
+
+  message Tags {
+      repeated string tags = 1;
+  }
+
+  Tags tags = 1;
+}
+

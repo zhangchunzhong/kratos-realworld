@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package conduit.v1;
+
+option go_package = "kratos-realworld/api/conduit/v1;v1";
+
+
+enum ErrorReason {
+  CONDUIT_UNSPECIFIED = 0;
+  NOT_IMPLEMENTED = 1;
+  USER_NOT_FOUND = 2;
+  ARTICLE_NOT_FOUND = 3;
+  COMMENT_NOT_FOUND = 4;
+  PROFILE_NOT_FOUND = 5;
+}

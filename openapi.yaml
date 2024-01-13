@@ -1,0 +1,562 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: Conduit API
+    description: The conduit service definition.
+    version: 0.0.1
+paths:
+    /api/articles:
+        get:
+            tags:
+                - Conduit
+            operationId: Conduit_ListArticles
+            parameters:
+                - name: listArticles.tag
+                  in: query
+                  schema:
+                    type: string
+                - name: listArticles.author
+                  in: query
+                  schema:
+                    type: string
+                - name: listArticles.favorited
+                  in: query
+                  schema:
+                    type: string
+                - name: listArticles.limit
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: listArticles.offset
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.ArticlesReply'
+        post:
+            tags:
+                - Conduit
+            operationId: Conduit_CreateArticle
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/conduit.v1.ArticleReply_Article'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.ArticleReply'
+    /api/articles/feed:
+        get:
+            tags:
+                - Conduit
+            operationId: Conduit_FeedArticles
+            parameters:
+                - name: listArticles.tag
+                  in: query
+                  schema:
+                    type: string
+                - name: listArticles.author
+                  in: query
+                  schema:
+                    type: string
+                - name: listArticles.favorited
+                  in: query
+                  schema:
+                    type: string
+                - name: listArticles.limit
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: listArticles.offset
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.ArticlesReply'
+    /api/articles/{slug}:
+        get:
+            tags:
+                - Conduit
+            operationId: Conduit_GetArticle
+            parameters:
+                - name: slug
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.ArticleReply'
+        put:
+            tags:
+                - Conduit
+            operationId: Conduit_UpdateArticle
+            parameters:
+                - name: slug
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/conduit.v1.ArticleReply_Article'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.ArticleReply'
+        delete:
+            tags:
+                - Conduit
+            operationId: Conduit_DeleteArticle
+            parameters:
+                - name: slug
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+    /api/articles/{slug}/comments:
+        get:
+            tags:
+                - Conduit
+            operationId: Conduit_GetComments
+            parameters:
+                - name: slug
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.CommentsReply'
+        post:
+            tags:
+                - Conduit
+            operationId: Conduit_AddComment
+            parameters:
+                - name: slug
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/conduit.v1.AddCommentRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.CommentReply'
+    /api/articles/{slug}/comments/{id}:
+        delete:
+            tags:
+                - Conduit
+            operationId: Conduit_DeleteComment
+            parameters:
+                - name: slug
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+    /api/articles/{slug}/favorite:
+        post:
+            tags:
+                - Conduit
+            operationId: Conduit_FavoriteArticle
+            parameters:
+                - name: slug
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/conduit.v1.ArticleRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.ArticleReply'
+        delete:
+            tags:
+                - Conduit
+            operationId: Conduit_UnfavoriteArticle
+            parameters:
+                - name: slug
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.ArticleReply'
+    /api/profiles/{username}:
+        get:
+            tags:
+                - Conduit
+            operationId: Conduit_GetProfile
+            parameters:
+                - name: username
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.ProfileReply'
+    /api/profiles/{username}/follow:
+        post:
+            tags:
+                - Conduit
+            operationId: Conduit_FollowUser
+            parameters:
+                - name: username
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/conduit.v1.ProfileRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.ProfileReply'
+        delete:
+            tags:
+                - Conduit
+            operationId: Conduit_UnfollowUser
+            parameters:
+                - name: username
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.ProfileReply'
+    /api/tags:
+        get:
+            tags:
+                - Conduit
+            operationId: Conduit_ListTags
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.TagsReply'
+    /api/user:
+        get:
+            tags:
+                - Conduit
+            operationId: Conduit_GetCurrentUser
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.UserReply'
+        put:
+            tags:
+                - Conduit
+            operationId: Conduit_UpdateUser
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/conduit.v1.UserReply_User'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.UserReply'
+    /api/users:
+        post:
+            tags:
+                - Conduit
+            operationId: Conduit_Register
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/conduit.v1.RegisterRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.UserReply'
+    /api/users/login:
+        post:
+            tags:
+                - Conduit
+            operationId: Conduit_Authenticate
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/conduit.v1.AuthenticateRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.UserReply'
+components:
+    schemas:
+        conduit.v1.AddCommentRequest:
+            type: object
+            properties:
+                slug:
+                    type: string
+                body:
+                    type: string
+        conduit.v1.ArticleReply:
+            type: object
+            properties:
+                article:
+                    $ref: '#/components/schemas/conduit.v1.ArticleReply_Article'
+        conduit.v1.ArticleReply_Article:
+            type: object
+            properties:
+                slug:
+                    type: string
+                title:
+                    type: string
+                description:
+                    type: string
+                body:
+                    type: string
+                tagList:
+                    type: array
+                    items:
+                        type: string
+                createdAt:
+                    type: string
+                    format: date-time
+                updatedAt:
+                    type: string
+                    format: date-time
+                favorited:
+                    type: boolean
+                favoritesCount:
+                    type: integer
+                    format: int32
+                author:
+                    $ref: '#/components/schemas/conduit.v1.UserReply_User'
+        conduit.v1.ArticleRequest:
+            type: object
+            properties:
+                slug:
+                    type: string
+        conduit.v1.ArticlesReply:
+            type: object
+            properties:
+                articles:
+                    $ref: '#/components/schemas/conduit.v1.ArticlesReply_Articles'
+        conduit.v1.ArticlesReply_Articles:
+            type: object
+            properties:
+                articles:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/conduit.v1.ArticleReply_Article'
+                articlesCount:
+                    type: integer
+                    format: int32
+        conduit.v1.AuthenticateRequest:
+            type: object
+            properties:
+                user:
+                    $ref: '#/components/schemas/conduit.v1.AuthenticateRequest_User'
+        conduit.v1.AuthenticateRequest_User:
+            type: object
+            properties:
+                email:
+                    type: string
+                password:
+                    type: string
+        conduit.v1.CommentReply:
+            type: object
+            properties:
+                comment:
+                    $ref: '#/components/schemas/conduit.v1.CommentReply_Comment'
+        conduit.v1.CommentReply_Comment:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int32
+                createdAt:
+                    type: string
+                updatedAt:
+                    type: string
+                body:
+                    type: string
+                author:
+                    $ref: '#/components/schemas/conduit.v1.UserReply_User'
+        conduit.v1.CommentsReply:
+            type: object
+            properties:
+                comments:
+                    $ref: '#/components/schemas/conduit.v1.CommentsReply_Comments'
+        conduit.v1.CommentsReply_Comments:
+            type: object
+            properties:
+                comments:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/conduit.v1.CommentReply_Comment'
+        conduit.v1.ProfileReply:
+            type: object
+            properties:
+                profile:
+                    $ref: '#/components/schemas/conduit.v1.ProfileReply_Profile'
+        conduit.v1.ProfileReply_Profile:
+            type: object
+            properties:
+                username:
+                    type: string
+                bio:
+                    type: string
+                image:
+                    type: string
+                following:
+                    type: boolean
+        conduit.v1.ProfileRequest:
+            type: object
+            properties:
+                username:
+                    type: string
+        conduit.v1.RegisterRequest:
+            type: object
+            properties:
+                user:
+                    $ref: '#/components/schemas/conduit.v1.RegisterRequest_User'
+        conduit.v1.RegisterRequest_User:
+            type: object
+            properties:
+                username:
+                    type: string
+                email:
+                    type: string
+                password:
+                    type: string
+        conduit.v1.TagsReply:
+            type: object
+            properties:
+                tags:
+                    $ref: '#/components/schemas/conduit.v1.TagsReply_Tags'
+        conduit.v1.TagsReply_Tags:
+            type: object
+            properties:
+                tags:
+                    type: array
+                    items:
+                        type: string
+        conduit.v1.UserReply:
+            type: object
+            properties:
+                user:
+                    $ref: '#/components/schemas/conduit.v1.UserReply_User'
+        conduit.v1.UserReply_User:
+            type: object
+            properties:
+                email:
+                    type: string
+                token:
+                    type: string
+                username:
+                    type: string
+                bio:
+                    type: string
+                image:
+                    type: string
+tags:
+    - name: Conduit
