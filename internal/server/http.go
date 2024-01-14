@@ -11,7 +11,7 @@ import (
 )
 
 // NewHTTPServer new an HTTP server.
-func NewHTTPServer(c *conf.Server, Conduit *service.ConduitService, logger log.Logger) *http.Server {
+func NewHTTPServer(c *conf.Server, conduit *service.ConduitService, logger log.Logger) *http.Server {
 	var opts = []http.ServerOption{
 		http.Middleware(
 			recovery.Recovery(),
@@ -27,6 +27,6 @@ func NewHTTPServer(c *conf.Server, Conduit *service.ConduitService, logger log.L
 		opts = append(opts, http.Timeout(c.Http.Timeout.AsDuration()))
 	}
 	srv := http.NewServer(opts...)
-	v1.RegisterConduitHTTPServer(srv, Conduit)
+	v1.RegisterConduitHTTPServer(srv, conduit)
 	return srv
 }
