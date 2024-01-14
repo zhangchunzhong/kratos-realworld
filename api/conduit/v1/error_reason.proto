@@ -1,15 +1,17 @@
 syntax = "proto3";
 
 package conduit.v1;
+import "errors/errors.proto";
 
 option go_package = "kratos-realworld/api/conduit/v1;v1";
 
 
 enum ErrorReason {
-  CONDUIT_UNSPECIFIED = 0;
-  NOT_IMPLEMENTED = 1;
-  USER_NOT_FOUND = 2;
-  ARTICLE_NOT_FOUND = 3;
-  COMMENT_NOT_FOUND = 4;
-  PROFILE_NOT_FOUND = 5;
+  option (errors.default_code) = 500;
+  CONDUIT_UNSPECIFIED = 0 ;
+  NOT_IMPLEMENTED = 1 [(errors.code) = 501];
+  USER_NOT_FOUND = 2 [(errors.code) = 404];
+  ARTICLE_NOT_FOUND = 3 [(errors.code) = 404];
+  COMMENT_NOT_FOUND = 4 [(errors.code) = 404];
+  PROFILE_NOT_FOUND = 5 [(errors.code) = 404];
 }

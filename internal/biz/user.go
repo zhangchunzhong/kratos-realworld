@@ -48,5 +48,41 @@ type UserRepo interface {
 	Register(ctx context.Context, register *UserRegister) (*User, error)
 	Login(ctx context.Context, login *UserLogin) (*User, error)
 	Update(ctx context.Context, update *UserUpdate) (*User, error)
-	GetCurrentUser(ctx context.Context) (*User, error)
+	GetCurrent(ctx context.Context) (*User, error)
+}
+
+// Authentication Header:
+//
+//	(1) You can read the authentication header from the headers of the request
+//	(2)Authorization: Token jwt.token.here
+
+// Registration
+//
+// (1) No authentication required, returns a User
+// (2) Required fields: email, username, password
+func (uc *ConduitUseCase) UserRegister(ctx context.Context, register *UserRegister) (*User, error) {
+	return uc.ur.Register(ctx, register)
+}
+
+// Login
+//
+// (1) No authentication required, returns a User
+// (2) Required fields: email, password
+func (uc *ConduitUseCase) UserLogin(ctx context.Context, login *UserLogin) (*User, error) {
+	return uc.ur.Login(ctx, login)
+}
+
+// Update User
+//
+// (1) Authentication required, returns the User
+// (2) Optional fields: email, username, password, image, bio
+func (uc *ConduitUseCase) UserUpdate(ctx context.Context, update *UserUpdate) (*User, error) {
+	return uc.ur.Update(ctx, update)
+}
+
+// Get Current User
+//
+// (1) Authentication required, returns a User that's the current user
+func (uc *ConduitUseCase) UserGetCurrent(ctx context.Context) (*User, error) {
+	return uc.ur.GetCurrent(ctx)
 }

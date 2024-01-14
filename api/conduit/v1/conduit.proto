@@ -4,14 +4,13 @@ package conduit.v1;
 
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
-import "google/protobuf/empty.proto";
 
 option go_package = "kratos-realworld/api/conduit/v1;v1";
 
 
 // The conduit service definition.
 service Conduit {
-  rpc Authenticate(AuthenticateRequest) returns (UserReply) {
+  rpc Login(LoginRequest) returns (UserReply) {
     option (google.api.http) = {
       post: "/api/users/login"
       body: "*"
@@ -23,66 +22,66 @@ service Conduit {
       body: "*"
     };
   }
-  rpc getCurrentUser(google.protobuf.Empty) returns (UserReply) {
+  rpc GetCurrentUser(GetCurrentUserRequest) returns (UserReply) {
     option (google.api.http) = {
       get: "/api/user"
     };
   }
-  rpc updateUser(UserReply.User) returns (UserReply) {
+  rpc UpdateUser(UpdateUserRequest) returns (UserReply) {
     option (google.api.http) = {
       put: "/api/user"
       body: "*"
     };
   }
-  rpc getProfile(ProfileRequest) returns (ProfileReply) {
+  rpc GetProfile(GetProfileRequest) returns (ProfileReply) {
     option (google.api.http) = {
       get: "/api/profiles/{username}"
     };
   }
-  rpc followUser(ProfileRequest) returns (ProfileReply) {
+  rpc FollowUser(FollowUserRequest) returns (ProfileReply) {
     option (google.api.http) = {
       post: "/api/profiles/{username}/follow"
       body: "*"
     };
   }
-  rpc unfollowUser(ProfileRequest) returns (ProfileReply) {
+  rpc UnfollowUser(UnfollowUserRequest) returns (ProfileReply) {
     option (google.api.http) = {
       delete: "/api/profiles/{username}/follow"
     };
   }
-  rpc listArticles(ListArticlesRequest) returns (ArticlesReply) {
+  rpc ListArticles(ListArticlesRequest) returns (ArticlesReply) {
     option (google.api.http) = {
       get: "/api/articles"
     };
   }
-  rpc feedArticles(ListArticlesRequest) returns (ArticlesReply) {
+  rpc FeedArticles(FeedArticlesRequest) returns (ArticlesReply) {
     option (google.api.http) = {
       get: "/api/articles/feed"
     };
   }
-  rpc getArticle(ArticleRequest) returns (ArticleReply) {
+  rpc GetArticle(GetArticleRequest) returns (ArticleReply) {
     option (google.api.http) = {
       get: "/api/articles/{slug}"
     };
   }
-  rpc createArticle(ArticleReply.Article) returns (ArticleReply) {
+  rpc CreateArticle(CreateArticleRequest) returns (ArticleReply) {
     option (google.api.http) = {
       post: "/api/articles"
       body: "*"
     };
   }
-  rpc updateArticle(ArticleReply.Article) returns (ArticleReply) {
+  rpc UpdateArticle(UpdateArticleRequest) returns (ArticleReply) {
     option (google.api.http) = {
       put: "/api/articles/{slug}"
       body: "*"
     };
   }
-  rpc deleteArticle(ArticleRequest) returns (google.protobuf.Empty) {
+  rpc DeleteArticle(DeleteArticleRequest) returns (EmptyReply) {
     option (google.api.http) = {
       delete: "/api/articles/{slug}"
     };
   }
-  rpc addComment(AddCommentRequest) returns (CommentReply) {
+  rpc AddComment(AddCommentRequest) returns (CommentReply) {
     option (google.api.http) = {
       post: "/api/articles/{slug}/comments"
       body: "*"
@@ -93,66 +92,72 @@ service Conduit {
       get: "/api/articles/{slug}/comments"
     };
   }
-  rpc deleteComment(DeleteCommentRequest) returns (google.protobuf.Empty) {
+  rpc DeleteComment(DeleteCommentRequest) returns (EmptyReply) {
     option (google.api.http) = {
       delete: "/api/articles/{slug}/comments/{id}"
     };
   }
-  rpc favoriteArticle(ArticleRequest) returns (ArticleReply) {
+  rpc FavoriteArticle(FavoriteArticleRequest) returns (ArticleReply) {
     option (google.api.http) = {
       post: "/api/articles/{slug}/favorite"
       body: "*"
     };
   }
-  rpc unfavoriteArticle(ArticleRequest) returns (ArticleReply) {
+  rpc UnfavoriteArticle(UnfavoriteArticleRequest) returns (ArticleReply) {
     option (google.api.http) = {
       delete: "/api/articles/{slug}/favorite"
     };
   }
-  rpc listTags(google.protobuf.Empty) returns (TagsReply) {
+  rpc ListTags(ListTagsRequest) returns (TagsReply) {
     option (google.api.http) = {
       get: "/api/tags"
     };
   }
 }
 
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
-}
-
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
-
-message AuthenticateRequest {
-
+message LoginRequest {
   message User {
       string email = 1;
       string password = 2;
   }
-
   User user = 1;
 }
 
 message RegisterRequest {
-
   message User {
       string username = 1;
       string email = 2;
       string password = 3;
   }
-
   User user = 1;
 }
 
-message ProfileRequest {
-  string username = 1;
+message UpdateUserRequest {
+  message User {
+    string email = 1;
+    string password = 2;
+    string username = 3;
+    string bio = 4;
+    string image = 5;
+  }
+  User user = 1;
+}
+
+message GetProfileRequest { 
+  string username = 1; 
+}
+
+message GetCurrentUserRequest { }
+
+message FollowUserRequest { 
+  string username = 1; 
+}
+
+message UnfollowUserRequest { 
+  string username = 1; 
 }
 
 message ListArticlesRequest {
-
   message ListArticles {
       string tag = 1;
       string author = 2;
@@ -160,12 +165,55 @@ message ListArticlesRequest {
       int32 limit = 4;
       int32 offset = 5;
   }
-
   ListArticles listArticles = 1;
 }
 
-message ArticleRequest {
-  string slug = 1;
+message FeedArticlesRequest {
+  message FeedArticles {
+      string tag = 1;
+      string author = 2;
+      string favorited = 3;
+      int32 limit = 4;
+      int32 offset = 5;
+  }
+  FeedArticles feedArticles = 1;
+}
+
+message GetArticleRequest { 
+  string slug = 1; 
+}
+
+message CreateArticleRequest {
+  message Article {
+    string title = 1;
+    string description = 2;
+    string body = 3;
+    repeated string tagList = 4;
+  }
+  Article article = 1;
+}
+
+message UpdateArticleRequest {
+  message Article {
+    string title = 1;
+    string description = 2;
+    string body = 3;
+    repeated string tagList = 4;
+  }
+  Article article = 1;
+  string slug = 2;
+}
+
+message DeleteArticleRequest { 
+  string slug = 1; 
+}
+
+message FavoriteArticleRequest { 
+  string slug = 1; 
+}
+
+message UnfavoriteArticleRequest { 
+  string slug = 1; 
 }
 
 message AddCommentRequest {
@@ -182,8 +230,9 @@ message DeleteCommentRequest {
   int32 id = 2;
 }
 
-message UserReply {
+message ListTagsRequest { }
 
+message UserReply {
   message User {
       string email = 1;
       string token = 2;
@@ -191,25 +240,20 @@ message UserReply {
       string bio = 4;
       string image = 5;
   }
-
   User user = 1;
 }
 
-
 message ProfileReply {
-
   message Profile {
       string username = 1;
       string bio = 2;
       string image = 3;
       bool following = 4;
   }
-
   Profile profile = 1;
 }
 
 message ArticleReply {
-
   message Article {
       string slug = 1;
       string title = 2;
@@ -222,22 +266,18 @@ message ArticleReply {
       int32 favoritesCount = 9;
       UserReply.User author = 10;
   }
-
   Article article = 1;
 }
 
 message ArticlesReply {
-
   message Articles {
       repeated ArticleReply.Article articles = 1;
       int32 articlesCount = 2;
   }
-
   Articles articles = 1;
 }
 
 message CommentReply {
-
   message Comment {
       int32 id = 1;
       string createdAt = 2;
@@ -245,25 +285,24 @@ message CommentReply {
       string body = 4;
       UserReply.User author = 5;
   }
-
   Comment comment = 1;
 }
 
 message CommentsReply {
-
   message Comments {
       repeated CommentReply.Comment comments = 1;
   }
-
   Comments comments = 1;
 }
 
 message TagsReply {
-
   message Tags {
       repeated string tags = 1;
   }
-
   Tags tags = 1;
 }
+
+message EmptyReply {
+}
+
 

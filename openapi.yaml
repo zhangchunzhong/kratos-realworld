@@ -50,7 +50,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/conduit.v1.ArticleReply_Article'
+                            $ref: '#/components/schemas/conduit.v1.CreateArticleRequest'
                 required: true
             responses:
                 "200":
@@ -65,24 +65,24 @@ paths:
                 - Conduit
             operationId: Conduit_FeedArticles
             parameters:
-                - name: listArticles.tag
+                - name: feedArticles.tag
                   in: query
                   schema:
                     type: string
-                - name: listArticles.author
+                - name: feedArticles.author
                   in: query
                   schema:
                     type: string
-                - name: listArticles.favorited
+                - name: feedArticles.favorited
                   in: query
                   schema:
                     type: string
-                - name: listArticles.limit
+                - name: feedArticles.limit
                   in: query
                   schema:
                     type: integer
                     format: int32
-                - name: listArticles.offset
+                - name: feedArticles.offset
                   in: query
                   schema:
                     type: integer
@@ -126,7 +126,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/conduit.v1.ArticleReply_Article'
+                            $ref: '#/components/schemas/conduit.v1.UpdateArticleRequest'
                 required: true
             responses:
                 "200":
@@ -148,7 +148,10 @@ paths:
             responses:
                 "200":
                     description: OK
-                    content: {}
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.EmptyReply'
     /api/articles/{slug}/comments:
         get:
             tags:
@@ -210,7 +213,10 @@ paths:
             responses:
                 "200":
                     description: OK
-                    content: {}
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/conduit.v1.EmptyReply'
     /api/articles/{slug}/favorite:
         post:
             tags:
@@ -226,7 +232,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/conduit.v1.ArticleRequest'
+                            $ref: '#/components/schemas/conduit.v1.FavoriteArticleRequest'
                 required: true
             responses:
                 "200":
@@ -285,7 +291,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/conduit.v1.ProfileRequest'
+                            $ref: '#/components/schemas/conduit.v1.FollowUserRequest'
                 required: true
             responses:
                 "200":
@@ -343,7 +349,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/conduit.v1.UserReply_User'
+                            $ref: '#/components/schemas/conduit.v1.UpdateUserRequest'
                 required: true
             responses:
                 "200":
@@ -374,12 +380,12 @@ paths:
         post:
             tags:
                 - Conduit
-            operationId: Conduit_Authenticate
+            operationId: Conduit_Login
             requestBody:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/conduit.v1.AuthenticateRequest'
+                            $ref: '#/components/schemas/conduit.v1.LoginRequest'
                 required: true
             responses:
                 "200":
@@ -430,11 +436,6 @@ components:
                     format: int32
                 author:
                     $ref: '#/components/schemas/conduit.v1.UserReply_User'
-        conduit.v1.ArticleRequest:
-            type: object
-            properties:
-                slug:
-                    type: string
         conduit.v1.ArticlesReply:
             type: object
             properties:
@@ -450,18 +451,6 @@ components:
                 articlesCount:
                     type: integer
                     format: int32
-        conduit.v1.AuthenticateRequest:
-            type: object
-            properties:
-                user:
-                    $ref: '#/components/schemas/conduit.v1.AuthenticateRequest_User'
-        conduit.v1.AuthenticateRequest_User:
-            type: object
-            properties:
-                email:
-                    type: string
-                password:
-                    type: string
         conduit.v1.CommentReply:
             type: object
             properties:
@@ -493,6 +482,49 @@ components:
                     type: array
                     items:
                         $ref: '#/components/schemas/conduit.v1.CommentReply_Comment'
+        conduit.v1.CreateArticleRequest:
+            type: object
+            properties:
+                article:
+                    $ref: '#/components/schemas/conduit.v1.CreateArticleRequest_Article'
+        conduit.v1.CreateArticleRequest_Article:
+            type: object
+            properties:
+                title:
+                    type: string
+                description:
+                    type: string
+                body:
+                    type: string
+                tagList:
+                    type: array
+                    items:
+                        type: string
+        conduit.v1.EmptyReply:
+            type: object
+            properties: {}
+        conduit.v1.FavoriteArticleRequest:
+            type: object
+            properties:
+                slug:
+                    type: string
+        conduit.v1.FollowUserRequest:
+            type: object
+            properties:
+                username:
+                    type: string
+        conduit.v1.LoginRequest:
+            type: object
+            properties:
+                user:
+                    $ref: '#/components/schemas/conduit.v1.LoginRequest_User'
+        conduit.v1.LoginRequest_User:
+            type: object
+            properties:
+                email:
+                    type: string
+                password:
+                    type: string
         conduit.v1.ProfileReply:
             type: object
             properties:
@@ -509,11 +541,6 @@ components:
                     type: string
                 following:
                     type: boolean
-        conduit.v1.ProfileRequest:
-            type: object
-            properties:
-                username:
-                    type: string
         conduit.v1.RegisterRequest:
             type: object
             properties:
@@ -540,6 +567,44 @@ components:
                     type: array
                     items:
                         type: string
+        conduit.v1.UpdateArticleRequest:
+            type: object
+            properties:
+                article:
+                    $ref: '#/components/schemas/conduit.v1.UpdateArticleRequest_Article'
+                slug:
+                    type: string
+        conduit.v1.UpdateArticleRequest_Article:
+            type: object
+            properties:
+                title:
+                    type: string
+                description:
+                    type: string
+                body:
+                    type: string
+                tagList:
+                    type: array
+                    items:
+                        type: string
+        conduit.v1.UpdateUserRequest:
+            type: object
+            properties:
+                user:
+                    $ref: '#/components/schemas/conduit.v1.UpdateUserRequest_User'
+        conduit.v1.UpdateUserRequest_User:
+            type: object
+            properties:
+                email:
+                    type: string
+                password:
+                    type: string
+                username:
+                    type: string
+                bio:
+                    type: string
+                image:
+                    type: string
         conduit.v1.UserReply:
             type: object
             properties:

@@ -10,7 +10,6 @@ import (
 	context "context"
 	http "github.com/go-kratos/kratos/v2/transport/http"
 	binding "github.com/go-kratos/kratos/v2/transport/http/binding"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -20,51 +19,51 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
-const OperationConduitaddComment = "/conduit.v1.Conduit/addComment"
-const OperationConduitAuthenticate = "/conduit.v1.Conduit/Authenticate"
-const OperationConduitcreateArticle = "/conduit.v1.Conduit/createArticle"
-const OperationConduitdeleteArticle = "/conduit.v1.Conduit/deleteArticle"
-const OperationConduitdeleteComment = "/conduit.v1.Conduit/deleteComment"
-const OperationConduitfavoriteArticle = "/conduit.v1.Conduit/favoriteArticle"
-const OperationConduitfeedArticles = "/conduit.v1.Conduit/feedArticles"
-const OperationConduitfollowUser = "/conduit.v1.Conduit/followUser"
-const OperationConduitgetArticle = "/conduit.v1.Conduit/getArticle"
+const OperationConduitAddComment = "/conduit.v1.Conduit/AddComment"
+const OperationConduitCreateArticle = "/conduit.v1.Conduit/CreateArticle"
+const OperationConduitDeleteArticle = "/conduit.v1.Conduit/DeleteArticle"
+const OperationConduitDeleteComment = "/conduit.v1.Conduit/DeleteComment"
+const OperationConduitFavoriteArticle = "/conduit.v1.Conduit/FavoriteArticle"
+const OperationConduitFeedArticles = "/conduit.v1.Conduit/FeedArticles"
+const OperationConduitFollowUser = "/conduit.v1.Conduit/FollowUser"
+const OperationConduitGetArticle = "/conduit.v1.Conduit/GetArticle"
 const OperationConduitgetComments = "/conduit.v1.Conduit/getComments"
-const OperationConduitgetCurrentUser = "/conduit.v1.Conduit/getCurrentUser"
-const OperationConduitgetProfile = "/conduit.v1.Conduit/getProfile"
-const OperationConduitlistArticles = "/conduit.v1.Conduit/listArticles"
-const OperationConduitlistTags = "/conduit.v1.Conduit/listTags"
+const OperationConduitGetCurrentUser = "/conduit.v1.Conduit/GetCurrentUser"
+const OperationConduitGetProfile = "/conduit.v1.Conduit/GetProfile"
+const OperationConduitListArticles = "/conduit.v1.Conduit/ListArticles"
+const OperationConduitListTags = "/conduit.v1.Conduit/ListTags"
+const OperationConduitLogin = "/conduit.v1.Conduit/Login"
 const OperationConduitRegister = "/conduit.v1.Conduit/Register"
-const OperationConduitunfavoriteArticle = "/conduit.v1.Conduit/unfavoriteArticle"
-const OperationConduitunfollowUser = "/conduit.v1.Conduit/unfollowUser"
-const OperationConduitupdateArticle = "/conduit.v1.Conduit/updateArticle"
-const OperationConduitupdateUser = "/conduit.v1.Conduit/updateUser"
+const OperationConduitUnfavoriteArticle = "/conduit.v1.Conduit/UnfavoriteArticle"
+const OperationConduitUnfollowUser = "/conduit.v1.Conduit/UnfollowUser"
+const OperationConduitUpdateArticle = "/conduit.v1.Conduit/UpdateArticle"
+const OperationConduitUpdateUser = "/conduit.v1.Conduit/UpdateUser"
 
 type ConduitHTTPServer interface {
 	AddComment(context.Context, *AddCommentRequest) (*CommentReply, error)
-	Authenticate(context.Context, *AuthenticateRequest) (*UserReply, error)
-	CreateArticle(context.Context, *ArticleReply_Article) (*ArticleReply, error)
-	DeleteArticle(context.Context, *ArticleRequest) (*emptypb.Empty, error)
-	DeleteComment(context.Context, *DeleteCommentRequest) (*emptypb.Empty, error)
-	FavoriteArticle(context.Context, *ArticleRequest) (*ArticleReply, error)
-	FeedArticles(context.Context, *ListArticlesRequest) (*ArticlesReply, error)
-	FollowUser(context.Context, *ProfileRequest) (*ProfileReply, error)
-	GetArticle(context.Context, *ArticleRequest) (*ArticleReply, error)
+	CreateArticle(context.Context, *CreateArticleRequest) (*ArticleReply, error)
+	DeleteArticle(context.Context, *DeleteArticleRequest) (*EmptyReply, error)
+	DeleteComment(context.Context, *DeleteCommentRequest) (*EmptyReply, error)
+	FavoriteArticle(context.Context, *FavoriteArticleRequest) (*ArticleReply, error)
+	FeedArticles(context.Context, *FeedArticlesRequest) (*ArticlesReply, error)
+	FollowUser(context.Context, *FollowUserRequest) (*ProfileReply, error)
+	GetArticle(context.Context, *GetArticleRequest) (*ArticleReply, error)
 	GetComments(context.Context, *GetCommentsRequest) (*CommentsReply, error)
-	GetCurrentUser(context.Context, *emptypb.Empty) (*UserReply, error)
-	GetProfile(context.Context, *ProfileRequest) (*ProfileReply, error)
+	GetCurrentUser(context.Context, *GetCurrentUserRequest) (*UserReply, error)
+	GetProfile(context.Context, *GetProfileRequest) (*ProfileReply, error)
 	ListArticles(context.Context, *ListArticlesRequest) (*ArticlesReply, error)
-	ListTags(context.Context, *emptypb.Empty) (*TagsReply, error)
+	ListTags(context.Context, *ListTagsRequest) (*TagsReply, error)
+	Login(context.Context, *LoginRequest) (*UserReply, error)
 	Register(context.Context, *RegisterRequest) (*UserReply, error)
-	UnfavoriteArticle(context.Context, *ArticleRequest) (*ArticleReply, error)
-	UnfollowUser(context.Context, *ProfileRequest) (*ProfileReply, error)
-	UpdateArticle(context.Context, *ArticleReply_Article) (*ArticleReply, error)
-	UpdateUser(context.Context, *UserReply_User) (*UserReply, error)
+	UnfavoriteArticle(context.Context, *UnfavoriteArticleRequest) (*ArticleReply, error)
+	UnfollowUser(context.Context, *UnfollowUserRequest) (*ProfileReply, error)
+	UpdateArticle(context.Context, *UpdateArticleRequest) (*ArticleReply, error)
+	UpdateUser(context.Context, *UpdateUserRequest) (*UserReply, error)
 }
 
 func RegisterConduitHTTPServer(s *http.Server, srv ConduitHTTPServer) {
 	r := s.Route("/")
-	r.POST("/api/users/login", _Conduit_Authenticate0_HTTP_Handler(srv))
+	r.POST("/api/users/login", _Conduit_Login0_HTTP_Handler(srv))
 	r.POST("/api/users", _Conduit_Register0_HTTP_Handler(srv))
 	r.GET("/api/user", _Conduit_GetCurrentUser0_HTTP_Handler(srv))
 	r.PUT("/api/user", _Conduit_UpdateUser0_HTTP_Handler(srv))
@@ -85,18 +84,18 @@ func RegisterConduitHTTPServer(s *http.Server, srv ConduitHTTPServer) {
 	r.GET("/api/tags", _Conduit_ListTags0_HTTP_Handler(srv))
 }
 
-func _Conduit_Authenticate0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Context) error {
+func _Conduit_Login0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in AuthenticateRequest
+		var in LoginRequest
 		if err := ctx.Bind(&in); err != nil {
 			return err
 		}
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationConduitAuthenticate)
+		http.SetOperation(ctx, OperationConduitLogin)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.Authenticate(ctx, req.(*AuthenticateRequest))
+			return srv.Login(ctx, req.(*LoginRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -131,13 +130,13 @@ func _Conduit_Register0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Contex
 
 func _Conduit_GetCurrentUser0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in emptypb.Empty
+		var in GetCurrentUserRequest
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationConduitgetCurrentUser)
+		http.SetOperation(ctx, OperationConduitGetCurrentUser)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetCurrentUser(ctx, req.(*emptypb.Empty))
+			return srv.GetCurrentUser(ctx, req.(*GetCurrentUserRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -150,16 +149,16 @@ func _Conduit_GetCurrentUser0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.
 
 func _Conduit_UpdateUser0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in UserReply_User
+		var in UpdateUserRequest
 		if err := ctx.Bind(&in); err != nil {
 			return err
 		}
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationConduitupdateUser)
+		http.SetOperation(ctx, OperationConduitUpdateUser)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.UpdateUser(ctx, req.(*UserReply_User))
+			return srv.UpdateUser(ctx, req.(*UpdateUserRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -172,16 +171,16 @@ func _Conduit_UpdateUser0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Cont
 
 func _Conduit_GetProfile0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in ProfileRequest
+		var in GetProfileRequest
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
 		if err := ctx.BindVars(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationConduitgetProfile)
+		http.SetOperation(ctx, OperationConduitGetProfile)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetProfile(ctx, req.(*ProfileRequest))
+			return srv.GetProfile(ctx, req.(*GetProfileRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -194,7 +193,7 @@ func _Conduit_GetProfile0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Cont
 
 func _Conduit_FollowUser0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in ProfileRequest
+		var in FollowUserRequest
 		if err := ctx.Bind(&in); err != nil {
 			return err
 		}
@@ -204,9 +203,9 @@ func _Conduit_FollowUser0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Cont
 		if err := ctx.BindVars(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationConduitfollowUser)
+		http.SetOperation(ctx, OperationConduitFollowUser)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.FollowUser(ctx, req.(*ProfileRequest))
+			return srv.FollowUser(ctx, req.(*FollowUserRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -219,16 +218,16 @@ func _Conduit_FollowUser0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Cont
 
 func _Conduit_UnfollowUser0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in ProfileRequest
+		var in UnfollowUserRequest
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
 		if err := ctx.BindVars(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationConduitunfollowUser)
+		http.SetOperation(ctx, OperationConduitUnfollowUser)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.UnfollowUser(ctx, req.(*ProfileRequest))
+			return srv.UnfollowUser(ctx, req.(*UnfollowUserRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -245,7 +244,7 @@ func _Conduit_ListArticles0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Co
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationConduitlistArticles)
+		http.SetOperation(ctx, OperationConduitListArticles)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
 			return srv.ListArticles(ctx, req.(*ListArticlesRequest))
 		})
@@ -260,13 +259,13 @@ func _Conduit_ListArticles0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Co
 
 func _Conduit_FeedArticles0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in ListArticlesRequest
+		var in FeedArticlesRequest
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationConduitfeedArticles)
+		http.SetOperation(ctx, OperationConduitFeedArticles)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.FeedArticles(ctx, req.(*ListArticlesRequest))
+			return srv.FeedArticles(ctx, req.(*FeedArticlesRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -279,16 +278,16 @@ func _Conduit_FeedArticles0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Co
 
 func _Conduit_GetArticle0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in ArticleRequest
+		var in GetArticleRequest
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
 		if err := ctx.BindVars(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationConduitgetArticle)
+		http.SetOperation(ctx, OperationConduitGetArticle)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetArticle(ctx, req.(*ArticleRequest))
+			return srv.GetArticle(ctx, req.(*GetArticleRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -301,16 +300,16 @@ func _Conduit_GetArticle0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Cont
 
 func _Conduit_CreateArticle0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in ArticleReply_Article
+		var in CreateArticleRequest
 		if err := ctx.Bind(&in); err != nil {
 			return err
 		}
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationConduitcreateArticle)
+		http.SetOperation(ctx, OperationConduitCreateArticle)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.CreateArticle(ctx, req.(*ArticleReply_Article))
+			return srv.CreateArticle(ctx, req.(*CreateArticleRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -323,7 +322,7 @@ func _Conduit_CreateArticle0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.C
 
 func _Conduit_UpdateArticle0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in ArticleReply_Article
+		var in UpdateArticleRequest
 		if err := ctx.Bind(&in); err != nil {
 			return err
 		}
@@ -333,9 +332,9 @@ func _Conduit_UpdateArticle0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.C
 		if err := ctx.BindVars(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationConduitupdateArticle)
+		http.SetOperation(ctx, OperationConduitUpdateArticle)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.UpdateArticle(ctx, req.(*ArticleReply_Article))
+			return srv.UpdateArticle(ctx, req.(*UpdateArticleRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -348,22 +347,22 @@ func _Conduit_UpdateArticle0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.C
 
 func _Conduit_DeleteArticle0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in ArticleRequest
+		var in DeleteArticleRequest
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
 		if err := ctx.BindVars(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationConduitdeleteArticle)
+		http.SetOperation(ctx, OperationConduitDeleteArticle)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.DeleteArticle(ctx, req.(*ArticleRequest))
+			return srv.DeleteArticle(ctx, req.(*DeleteArticleRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
 			return err
 		}
-		reply := out.(*emptypb.Empty)
+		reply := out.(*EmptyReply)
 		return ctx.Result(200, reply)
 	}
 }
@@ -380,7 +379,7 @@ func _Conduit_AddComment0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Cont
 		if err := ctx.BindVars(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationConduitaddComment)
+		http.SetOperation(ctx, OperationConduitAddComment)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
 			return srv.AddComment(ctx, req.(*AddCommentRequest))
 		})
@@ -424,7 +423,7 @@ func _Conduit_DeleteComment0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.C
 		if err := ctx.BindVars(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationConduitdeleteComment)
+		http.SetOperation(ctx, OperationConduitDeleteComment)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
 			return srv.DeleteComment(ctx, req.(*DeleteCommentRequest))
 		})
@@ -432,14 +431,14 @@ func _Conduit_DeleteComment0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.C
 		if err != nil {
 			return err
 		}
-		reply := out.(*emptypb.Empty)
+		reply := out.(*EmptyReply)
 		return ctx.Result(200, reply)
 	}
 }
 
 func _Conduit_FavoriteArticle0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in ArticleRequest
+		var in FavoriteArticleRequest
 		if err := ctx.Bind(&in); err != nil {
 			return err
 		}
@@ -449,9 +448,9 @@ func _Conduit_FavoriteArticle0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http
 		if err := ctx.BindVars(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationConduitfavoriteArticle)
+		http.SetOperation(ctx, OperationConduitFavoriteArticle)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.FavoriteArticle(ctx, req.(*ArticleRequest))
+			return srv.FavoriteArticle(ctx, req.(*FavoriteArticleRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -464,16 +463,16 @@ func _Conduit_FavoriteArticle0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http
 
 func _Conduit_UnfavoriteArticle0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in ArticleRequest
+		var in UnfavoriteArticleRequest
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
 		if err := ctx.BindVars(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationConduitunfavoriteArticle)
+		http.SetOperation(ctx, OperationConduitUnfavoriteArticle)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.UnfavoriteArticle(ctx, req.(*ArticleRequest))
+			return srv.UnfavoriteArticle(ctx, req.(*UnfavoriteArticleRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -486,13 +485,13 @@ func _Conduit_UnfavoriteArticle0_HTTP_Handler(srv ConduitHTTPServer) func(ctx ht
 
 func _Conduit_ListTags0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in emptypb.Empty
+		var in ListTagsRequest
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationConduitlistTags)
+		http.SetOperation(ctx, OperationConduitListTags)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.ListTags(ctx, req.(*emptypb.Empty))
+			return srv.ListTags(ctx, req.(*ListTagsRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -505,24 +504,24 @@ func _Conduit_ListTags0_HTTP_Handler(srv ConduitHTTPServer) func(ctx http.Contex
 
 type ConduitHTTPClient interface {
 	AddComment(ctx context.Context, req *AddCommentRequest, opts ...http.CallOption) (rsp *CommentReply, err error)
-	Authenticate(ctx context.Context, req *AuthenticateRequest, opts ...http.CallOption) (rsp *UserReply, err error)
-	CreateArticle(ctx context.Context, req *ArticleReply_Article, opts ...http.CallOption) (rsp *ArticleReply, err error)
-	DeleteArticle(ctx context.Context, req *ArticleRequest, opts ...http.CallOption) (rsp *emptypb.Empty, err error)
-	DeleteComment(ctx context.Context, req *DeleteCommentRequest, opts ...http.CallOption) (rsp *emptypb.Empty, err error)
-	FavoriteArticle(ctx context.Context, req *ArticleRequest, opts ...http.CallOption) (rsp *ArticleReply, err error)
-	FeedArticles(ctx context.Context, req *ListArticlesRequest, opts ...http.CallOption) (rsp *ArticlesReply, err error)
-	FollowUser(ctx context.Context, req *ProfileRequest, opts ...http.CallOption) (rsp *ProfileReply, err error)
-	GetArticle(ctx context.Context, req *ArticleRequest, opts ...http.CallOption) (rsp *ArticleReply, err error)
+	CreateArticle(ctx context.Context, req *CreateArticleRequest, opts ...http.CallOption) (rsp *ArticleReply, err error)
+	DeleteArticle(ctx context.Context, req *DeleteArticleRequest, opts ...http.CallOption) (rsp *EmptyReply, err error)
+	DeleteComment(ctx context.Context, req *DeleteCommentRequest, opts ...http.CallOption) (rsp *EmptyReply, err error)
+	FavoriteArticle(ctx context.Context, req *FavoriteArticleRequest, opts ...http.CallOption) (rsp *ArticleReply, err error)
+	FeedArticles(ctx context.Context, req *FeedArticlesRequest, opts ...http.CallOption) (rsp *ArticlesReply, err error)
+	FollowUser(ctx context.Context, req *FollowUserRequest, opts ...http.CallOption) (rsp *ProfileReply, err error)
+	GetArticle(ctx context.Context, req *GetArticleRequest, opts ...http.CallOption) (rsp *ArticleReply, err error)
 	GetComments(ctx context.Context, req *GetCommentsRequest, opts ...http.CallOption) (rsp *CommentsReply, err error)
-	GetCurrentUser(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *UserReply, err error)
-	GetProfile(ctx context.Context, req *ProfileRequest, opts ...http.CallOption) (rsp *ProfileReply, err error)
+	GetCurrentUser(ctx context.Context, req *GetCurrentUserRequest, opts ...http.CallOption) (rsp *UserReply, err error)
+	GetProfile(ctx context.Context, req *GetProfileRequest, opts ...http.CallOption) (rsp *ProfileReply, err error)
 	ListArticles(ctx context.Context, req *ListArticlesRequest, opts ...http.CallOption) (rsp *ArticlesReply, err error)
-	ListTags(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *TagsReply, err error)
+	ListTags(ctx context.Context, req *ListTagsRequest, opts ...http.CallOption) (rsp *TagsReply, err error)
+	Login(ctx context.Context, req *LoginRequest, opts ...http.CallOption) (rsp *UserReply, err error)
 	Register(ctx context.Context, req *RegisterRequest, opts ...http.CallOption) (rsp *UserReply, err error)
-	UnfavoriteArticle(ctx context.Context, req *ArticleRequest, opts ...http.CallOption) (rsp *ArticleReply, err error)
-	UnfollowUser(ctx context.Context, req *ProfileRequest, opts ...http.CallOption) (rsp *ProfileReply, err error)
-	UpdateArticle(ctx context.Context, req *ArticleReply_Article, opts ...http.CallOption) (rsp *ArticleReply, err error)
-	UpdateUser(ctx context.Context, req *UserReply_User, opts ...http.CallOption) (rsp *UserReply, err error)
+	UnfavoriteArticle(ctx context.Context, req *UnfavoriteArticleRequest, opts ...http.CallOption) (rsp *ArticleReply, err error)
+	UnfollowUser(ctx context.Context, req *UnfollowUserRequest, opts ...http.CallOption) (rsp *ProfileReply, err error)
+	UpdateArticle(ctx context.Context, req *UpdateArticleRequest, opts ...http.CallOption) (rsp *ArticleReply, err error)
+	UpdateUser(ctx context.Context, req *UpdateUserRequest, opts ...http.CallOption) (rsp *UserReply, err error)
 }
 
 type ConduitHTTPClientImpl struct {
@@ -537,7 +536,7 @@ func (c *ConduitHTTPClientImpl) AddComment(ctx context.Context, in *AddCommentRe
 	var out CommentReply
 	pattern := "/api/articles/{slug}/comments"
 	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation(OperationConduitaddComment))
+	opts = append(opts, http.Operation(OperationConduitAddComment))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
@@ -546,24 +545,11 @@ func (c *ConduitHTTPClientImpl) AddComment(ctx context.Context, in *AddCommentRe
 	return &out, err
 }
 
-func (c *ConduitHTTPClientImpl) Authenticate(ctx context.Context, in *AuthenticateRequest, opts ...http.CallOption) (*UserReply, error) {
-	var out UserReply
-	pattern := "/api/users/login"
-	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation(OperationConduitAuthenticate))
-	opts = append(opts, http.PathTemplate(pattern))
-	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &out, err
-}
-
-func (c *ConduitHTTPClientImpl) CreateArticle(ctx context.Context, in *ArticleReply_Article, opts ...http.CallOption) (*ArticleReply, error) {
+func (c *ConduitHTTPClientImpl) CreateArticle(ctx context.Context, in *CreateArticleRequest, opts ...http.CallOption) (*ArticleReply, error) {
 	var out ArticleReply
 	pattern := "/api/articles"
 	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation(OperationConduitcreateArticle))
+	opts = append(opts, http.Operation(OperationConduitCreateArticle))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
@@ -572,11 +558,11 @@ func (c *ConduitHTTPClientImpl) CreateArticle(ctx context.Context, in *ArticleRe
 	return &out, err
 }
 
-func (c *ConduitHTTPClientImpl) DeleteArticle(ctx context.Context, in *ArticleRequest, opts ...http.CallOption) (*emptypb.Empty, error) {
-	var out emptypb.Empty
+func (c *ConduitHTTPClientImpl) DeleteArticle(ctx context.Context, in *DeleteArticleRequest, opts ...http.CallOption) (*EmptyReply, error) {
+	var out EmptyReply
 	pattern := "/api/articles/{slug}"
 	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation(OperationConduitdeleteArticle))
+	opts = append(opts, http.Operation(OperationConduitDeleteArticle))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
 	if err != nil {
@@ -585,11 +571,11 @@ func (c *ConduitHTTPClientImpl) DeleteArticle(ctx context.Context, in *ArticleRe
 	return &out, err
 }
 
-func (c *ConduitHTTPClientImpl) DeleteComment(ctx context.Context, in *DeleteCommentRequest, opts ...http.CallOption) (*emptypb.Empty, error) {
-	var out emptypb.Empty
+func (c *ConduitHTTPClientImpl) DeleteComment(ctx context.Context, in *DeleteCommentRequest, opts ...http.CallOption) (*EmptyReply, error) {
+	var out EmptyReply
 	pattern := "/api/articles/{slug}/comments/{id}"
 	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation(OperationConduitdeleteComment))
+	opts = append(opts, http.Operation(OperationConduitDeleteComment))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
 	if err != nil {
@@ -598,11 +584,11 @@ func (c *ConduitHTTPClientImpl) DeleteComment(ctx context.Context, in *DeleteCom
 	return &out, err
 }
 
-func (c *ConduitHTTPClientImpl) FavoriteArticle(ctx context.Context, in *ArticleRequest, opts ...http.CallOption) (*ArticleReply, error) {
+func (c *ConduitHTTPClientImpl) FavoriteArticle(ctx context.Context, in *FavoriteArticleRequest, opts ...http.CallOption) (*ArticleReply, error) {
 	var out ArticleReply
 	pattern := "/api/articles/{slug}/favorite"
 	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation(OperationConduitfavoriteArticle))
+	opts = append(opts, http.Operation(OperationConduitFavoriteArticle))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
@@ -611,11 +597,11 @@ func (c *ConduitHTTPClientImpl) FavoriteArticle(ctx context.Context, in *Article
 	return &out, err
 }
 
-func (c *ConduitHTTPClientImpl) FeedArticles(ctx context.Context, in *ListArticlesRequest, opts ...http.CallOption) (*ArticlesReply, error) {
+func (c *ConduitHTTPClientImpl) FeedArticles(ctx context.Context, in *FeedArticlesRequest, opts ...http.CallOption) (*ArticlesReply, error) {
 	var out ArticlesReply
 	pattern := "/api/articles/feed"
 	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation(OperationConduitfeedArticles))
+	opts = append(opts, http.Operation(OperationConduitFeedArticles))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
@@ -624,11 +610,11 @@ func (c *ConduitHTTPClientImpl) FeedArticles(ctx context.Context, in *ListArticl
 	return &out, err
 }
 
-func (c *ConduitHTTPClientImpl) FollowUser(ctx context.Context, in *ProfileRequest, opts ...http.CallOption) (*ProfileReply, error) {
+func (c *ConduitHTTPClientImpl) FollowUser(ctx context.Context, in *FollowUserRequest, opts ...http.CallOption) (*ProfileReply, error) {
 	var out ProfileReply
 	pattern := "/api/profiles/{username}/follow"
 	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation(OperationConduitfollowUser))
+	opts = append(opts, http.Operation(OperationConduitFollowUser))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
@@ -637,11 +623,11 @@ func (c *ConduitHTTPClientImpl) FollowUser(ctx context.Context, in *ProfileReque
 	return &out, err
 }
 
-func (c *ConduitHTTPClientImpl) GetArticle(ctx context.Context, in *ArticleRequest, opts ...http.CallOption) (*ArticleReply, error) {
+func (c *ConduitHTTPClientImpl) GetArticle(ctx context.Context, in *GetArticleRequest, opts ...http.CallOption) (*ArticleReply, error) {
 	var out ArticleReply
 	pattern := "/api/articles/{slug}"
 	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation(OperationConduitgetArticle))
+	opts = append(opts, http.Operation(OperationConduitGetArticle))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
@@ -663,11 +649,11 @@ func (c *ConduitHTTPClientImpl) GetComments(ctx context.Context, in *GetComments
 	return &out, err
 }
 
-func (c *ConduitHTTPClientImpl) GetCurrentUser(ctx context.Context, in *emptypb.Empty, opts ...http.CallOption) (*UserReply, error) {
+func (c *ConduitHTTPClientImpl) GetCurrentUser(ctx context.Context, in *GetCurrentUserRequest, opts ...http.CallOption) (*UserReply, error) {
 	var out UserReply
 	pattern := "/api/user"
 	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation(OperationConduitgetCurrentUser))
+	opts = append(opts, http.Operation(OperationConduitGetCurrentUser))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
@@ -676,11 +662,11 @@ func (c *ConduitHTTPClientImpl) GetCurrentUser(ctx context.Context, in *emptypb.
 	return &out, err
 }
 
-func (c *ConduitHTTPClientImpl) GetProfile(ctx context.Context, in *ProfileRequest, opts ...http.CallOption) (*ProfileReply, error) {
+func (c *ConduitHTTPClientImpl) GetProfile(ctx context.Context, in *GetProfileRequest, opts ...http.CallOption) (*ProfileReply, error) {
 	var out ProfileReply
 	pattern := "/api/profiles/{username}"
 	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation(OperationConduitgetProfile))
+	opts = append(opts, http.Operation(OperationConduitGetProfile))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
@@ -693,7 +679,7 @@ func (c *ConduitHTTPClientImpl) ListArticles(ctx context.Context, in *ListArticl
 	var out ArticlesReply
 	pattern := "/api/articles"
 	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation(OperationConduitlistArticles))
+	opts = append(opts, http.Operation(OperationConduitListArticles))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
@@ -702,13 +688,26 @@ func (c *ConduitHTTPClientImpl) ListArticles(ctx context.Context, in *ListArticl
 	return &out, err
 }
 
-func (c *ConduitHTTPClientImpl) ListTags(ctx context.Context, in *emptypb.Empty, opts ...http.CallOption) (*TagsReply, error) {
+func (c *ConduitHTTPClientImpl) ListTags(ctx context.Context, in *ListTagsRequest, opts ...http.CallOption) (*TagsReply, error) {
 	var out TagsReply
 	pattern := "/api/tags"
 	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation(OperationConduitlistTags))
+	opts = append(opts, http.Operation(OperationConduitListTags))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ConduitHTTPClientImpl) Login(ctx context.Context, in *LoginRequest, opts ...http.CallOption) (*UserReply, error) {
+	var out UserReply
+	pattern := "/api/users/login"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationConduitLogin))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -728,11 +727,11 @@ func (c *ConduitHTTPClientImpl) Register(ctx context.Context, in *RegisterReques
 	return &out, err
 }
 
-func (c *ConduitHTTPClientImpl) UnfavoriteArticle(ctx context.Context, in *ArticleRequest, opts ...http.CallOption) (*ArticleReply, error) {
+func (c *ConduitHTTPClientImpl) UnfavoriteArticle(ctx context.Context, in *UnfavoriteArticleRequest, opts ...http.CallOption) (*ArticleReply, error) {
 	var out ArticleReply
 	pattern := "/api/articles/{slug}/favorite"
 	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation(OperationConduitunfavoriteArticle))
+	opts = append(opts, http.Operation(OperationConduitUnfavoriteArticle))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
 	if err != nil {
@@ -741,11 +740,11 @@ func (c *ConduitHTTPClientImpl) UnfavoriteArticle(ctx context.Context, in *Artic
 	return &out, err
 }
 
-func (c *ConduitHTTPClientImpl) UnfollowUser(ctx context.Context, in *ProfileRequest, opts ...http.CallOption) (*ProfileReply, error) {
+func (c *ConduitHTTPClientImpl) UnfollowUser(ctx context.Context, in *UnfollowUserRequest, opts ...http.CallOption) (*ProfileReply, error) {
 	var out ProfileReply
 	pattern := "/api/profiles/{username}/follow"
 	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation(OperationConduitunfollowUser))
+	opts = append(opts, http.Operation(OperationConduitUnfollowUser))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
 	if err != nil {
@@ -754,11 +753,11 @@ func (c *ConduitHTTPClientImpl) UnfollowUser(ctx context.Context, in *ProfileReq
 	return &out, err
 }
 
-func (c *ConduitHTTPClientImpl) UpdateArticle(ctx context.Context, in *ArticleReply_Article, opts ...http.CallOption) (*ArticleReply, error) {
+func (c *ConduitHTTPClientImpl) UpdateArticle(ctx context.Context, in *UpdateArticleRequest, opts ...http.CallOption) (*ArticleReply, error) {
 	var out ArticleReply
 	pattern := "/api/articles/{slug}"
 	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation(OperationConduitupdateArticle))
+	opts = append(opts, http.Operation(OperationConduitUpdateArticle))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
 	if err != nil {
@@ -767,11 +766,11 @@ func (c *ConduitHTTPClientImpl) UpdateArticle(ctx context.Context, in *ArticleRe
 	return &out, err
 }
 
-func (c *ConduitHTTPClientImpl) UpdateUser(ctx context.Context, in *UserReply_User, opts ...http.CallOption) (*UserReply, error) {
+func (c *ConduitHTTPClientImpl) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...http.CallOption) (*UserReply, error) {
 	var out UserReply
 	pattern := "/api/user"
 	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation(OperationConduitupdateUser))
+	opts = append(opts, http.Operation(OperationConduitUpdateUser))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
 	if err != nil {

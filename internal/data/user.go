@@ -33,6 +33,6 @@ func (r *UserRepo) Update(ctx context.Context, update *biz.UserUpdate) (*biz.Use
 	return nil, ErrNotImplemented
 }
 
-func (r *UserRepo) GetCurrentUser(ctx context.Context) (*biz.User, error) {
+func (r *UserRepo) GetCurrent(ctx context.Context) (*biz.User, error) {
 	return nil, ErrNotImplemented
 }

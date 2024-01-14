@@ -25,3 +25,31 @@ type ProfileRepo interface {
 	GetFollowers(ctx context.Context, userID uint) ([]*Profile, error)
 	GetFollowings(ctx context.Context, userID uint) ([]*Profile, error)
 }
+
+// Follow a user
+//
+//	(1) Authentication optional
+func (uc *ConduitUseCase) Follow(ctx context.Context, userID, followID uint) error {
+	return uc.pr.Follow(ctx, userID, followID)
+}
+
+// UnFollow a user
+//
+//	(1) Authentication optional
+func (uc *ConduitUseCase) UnFollow(ctx context.Context, userID, followID uint) error {
+	return uc.pr.UnFollow(ctx, userID, followID)
+}
+
+// Get followers of a user
+//
+//	(1) Authentication optional, returns a Profile[]
+func (uc *ConduitUseCase) GetFollowers(ctx context.Context, userID uint) ([]*Profile, error) {
+	return uc.pr.GetFollowers(ctx, userID)
+}
+
+// Get followings of a user
+//
+//	(1) Authentication optional, returns a Profile[]
+func (uc *ConduitUseCase) GetFollowings(ctx context.Context, userID uint) ([]*Profile, error) {
+	return uc.pr.GetFollowings(ctx, userID)
+}

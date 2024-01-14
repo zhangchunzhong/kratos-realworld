@@ -28,11 +28,11 @@ func wireApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*
 	if err != nil {
 		return nil, nil, err
 	}
-	userRepo := data.NewUserRepo(dataData, logger)
 	articleRepo := data.NewArticleRepo(dataData, logger)
 	commentRepo := data.NewCommentRepo(dataData, logger)
+	userRepo := data.NewUserRepo(dataData, logger)
 	profileRepo := data.NewProfileRepo(dataData, logger)
-	conduitUseCase := biz.NewConduitUseCase(userRepo, articleRepo, commentRepo, profileRepo, logger)
+	conduitUseCase := biz.NewConduitUseCase(articleRepo, commentRepo, userRepo, profileRepo, logger)
 	conduitService := service.NewConduitService(conduitUseCase)
 	grpcServer := server.NewGRPCServer(confServer, conduitService, logger)
 	httpServer := server.NewHTTPServer(confServer, conduitService, logger)
