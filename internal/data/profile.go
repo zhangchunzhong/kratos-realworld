@@ -6,7 +6,16 @@ import (
 	"kratos-realworld/internal/biz"
 
 	"github.com/go-kratos/kratos/v2/log"
+	"gorm.io/gorm"
 )
+
+type Following struct {
+	gorm.Model
+	UserID      uint
+	User        User
+	FollowingID uint
+	Following   User
+}
 
 type ProfileRepo struct {
 	data *Data

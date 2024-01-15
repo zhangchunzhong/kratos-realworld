@@ -23,7 +23,7 @@ type ListOptions struct {
 }
 
 type Article struct {
-	Id             uint
+	ID             uint
 	Slug           string
 	Title          string
 	Description    string
@@ -71,7 +71,7 @@ func (uc *ConduitUseCase) GetArticle(ctx context.Context, slug string) (*Article
 // Update Article
 //
 //	(1) Authentication required, returns the updated Article
-//	(2) Optional fields: title, description, body	
+//	(2) Optional fields: title, description, body
 //	(3) Slug also gets updated when the title is changed
 func (uc *ConduitUseCase) UpdateArticle(ctx context.Context, slug string, article *Article) (*Article, error) {
 	return uc.ar.Update(ctx, slug, article)
@@ -95,9 +95,9 @@ func (uc *ConduitUseCase) ListArticle(ctx context.Context, opt *ListOptions) ([]
 }
 
 // Feed articles
-//	
+//
 //	(1) Can also take limit and offset query parameters like List Articles
-//	(2) Authentication required, will return multiple articles created by followed users, ordered by most recent first	
+//	(2) Authentication required, will return multiple articles created by followed users, ordered by most recent first
 func (uc *ConduitUseCase) FeedArticle(ctx context.Context, opt *ListOptions, userId uint) ([]*Article, error) {
 	return uc.ar.Feed(ctx, opt, userId)
 }
@@ -119,7 +119,7 @@ func (uc *ConduitUseCase) UnFavoriteArticle(ctx context.Context, slug string, us
 }
 
 // Get Tags
-//	
+//
 //	(1) No authentication required, returns a List of Tags
 func (uc *ConduitUseCase) GetArticleTags(ctx context.Context) ([]*Tag, error) {
 	return uc.ar.GetTags(ctx)

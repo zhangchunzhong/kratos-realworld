@@ -13,7 +13,7 @@ var (
 )
 
 type User struct {
-	Id       uint
+	ID       uint
 	Email    string
 	Username string
 	PwdHash  string
@@ -49,6 +49,9 @@ type UserRepo interface {
 	Login(ctx context.Context, login *UserLogin) (*User, error)
 	Update(ctx context.Context, update *UserUpdate) (*User, error)
 	GetCurrent(ctx context.Context) (*User, error)
+	GetUserByEmail(ctx context.Context, email string) (*User, error)
+	GetUserByUsername(ctx context.Context, username string) (*User, error)
+	GetUserById(ctx context.Context, id uint) (*User, error)
 }
 
 // Authentication Header:
@@ -85,4 +88,25 @@ func (uc *ConduitUseCase) UserUpdate(ctx context.Context, update *UserUpdate) (*
 // (1) Authentication required, returns a User that's the current user
 func (uc *ConduitUseCase) UserGetCurrent(ctx context.Context) (*User, error) {
 	return uc.ur.GetCurrent(ctx)
+}
+
+// Get User by Email
+//
+// (1) Authentication optional, returns a User
+func (uc *ConduitUseCase) UserGetByEmail(ctx context.Context, email string) (*User, error) {
+	return uc.ur.GetUserByEmail(ctx, email)
+}
+
+// Get User by Username
+//
+// (1) Authentication optional, returns a User
+func (uc *ConduitUseCase) UserGetByUsername(ctx context.Context, username string) (*User, error) {
+	return uc.ur.GetUserByUsername(ctx, username)
+}
+
+// Get User by Id
+//
+// (1) Authentication optional, returns a User
+func (uc *ConduitUseCase) UserGetById(ctx context.Context, id uint) (*User, error) {
+	return uc.ur.GetUserById(ctx, id)
 }

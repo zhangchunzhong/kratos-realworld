@@ -14,7 +14,7 @@ var (
 )
 
 type Comment struct {
-	Id        uint
+	ID        uint
 	Body      string
 	CreatedAt time.Time
 	UpdatedAt time.Time

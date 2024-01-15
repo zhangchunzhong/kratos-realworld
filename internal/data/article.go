@@ -5,7 +5,32 @@ import (
 	"kratos-realworld/internal/biz"
 
 	"github.com/go-kratos/kratos/v2/log"
+	"gorm.io/gorm"
 )
+
+type Article struct {
+	gorm.Model
+	Slug           string `gorm:"uniqueIndex;not null"`
+	Title          string `gorm:"size:500"`
+	Description    string `gorm:"size:500"`
+	Body           string `gorm:"not null"`
+	Tags           []Tag  `gorm:"many2many:article_tags;"`
+	FavoritesCount uint   `gorm:"default:0"`
+	AuthorID       uint
+	Author         User
+}
+
+type Tag struct {
+	gorm.Model
+	Name     string    `gorm:"uniqueIndex;not null"`
+	Articles []Article `gorm:"many2many:article_tags;"`
+}
+
+type ArticleFavorite struct {
+	gorm.Model
+	UserID    uint
+	ArticleID uint
+}
 
 type ArticleRepo struct {
 	data *Data

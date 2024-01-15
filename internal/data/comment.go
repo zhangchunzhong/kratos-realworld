@@ -6,7 +6,16 @@ import (
 	"kratos-realworld/internal/biz"
 
 	"github.com/go-kratos/kratos/v2/log"
+	"gorm.io/gorm"
 )
+
+type Comment struct {
+	gorm.Model
+	ArticleSlug string
+	Article     Article `gorm:"references:Slug"`
+	Body        string
+	AuthorID    uint
+}
 
 type CommentRepo struct {
 	data *Data
